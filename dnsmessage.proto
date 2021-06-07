@@ -53,8 +53,8 @@ message PBDNSMessage {
   optional bytes serverIdentity = 3;            // ID of the server emitting the protobuf message
   optional SocketFamily socketFamily = 4;
   optional SocketProtocol socketProtocol = 5;
-  optional bytes from = 6;                      // DNS requestor (client) as 4 (IPv4) or 16 (IPv6) raw bytes
-  optional bytes to = 7;                        // DNS responder (server) as 4 (IPv4) or 16 (IPv6) raw bytes
+  optional bytes from = 6;                      // DNS requestor (client) as 4 (IPv4) or 16 (IPv6) raw bytes in network byte order
+  optional bytes to = 7;                        // DNS responder (server) as 4 (IPv4) or 16 (IPv6) raw bytes in network byte order
   optional uint64 inBytes = 8;                  // Size of the query or response on the wire
   optional uint32 timeSec = 9;                  // Time of message reception (seconds since epoch)
   optional uint32 timeUsec = 10;                // Time of message reception (additional micro-seconds)
@@ -75,7 +75,7 @@ message PBDNSMessage {
       optional uint32 type = 2;                 // https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4
       optional uint32 class = 3;                // Typically 1 (IN), see https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-2
       optional uint32 ttl = 4;                  // TTL in seconds
-      optional bytes rdata = 5;                 // raw address bytes for A & AAAA; text representation for others, with fully qualified (trailing dot) domain names
+      optional bytes rdata = 5;                 // raw address bytes in network byte order for A & AAAA; text representation for others, with fully qualified (trailing dot) domain names
       optional bool  udr = 6;                   // True if this is the first time this RR has been seen for this question
     }
     optional uint32 rcode = 1;                  // DNS Response code, or 65536 for a network error including a timeout
@@ -90,7 +90,7 @@ message PBDNSMessage {
   }
 
   optional DNSResponse response = 13;
-  optional bytes originalRequestorSubnet = 14;  // EDNS Client Subnet value (4 or 16 raw bytes)
+  optional bytes originalRequestorSubnet = 14;  // EDNS Client Subnet value (4 or 16 raw bytes in network byte order)
   optional string requestorId = 15;             // Username of the requestor
   optional bytes initialRequestId = 16;         // UUID of the incoming query that initiated this outgoing query or incoming response
   optional bytes deviceId = 17;                 // Device ID of the requestor (could be mac address IP address or e.g. IMEI, format implementation dependent)
