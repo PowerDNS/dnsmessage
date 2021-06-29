@@ -39,6 +39,8 @@ message PBDNSMessage {
   enum SocketProtocol {
     UDP = 1;                                    // User Datagram Protocol (RFC 768)
     TCP = 2;                                    // Transmission Control Protocol (RFC 793)
+    DOT = 3;                                    // DNS over TLS (RFC 7858)
+    DOH = 4;                                    // DNS over HTTPS (RFC 8484)
   }
   enum PolicyType {
     UNKNOWN = 1;                                // No RPZ policy applied, or unknown type
