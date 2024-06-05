@@ -145,7 +145,7 @@ message PBDNSMessage {
   }
 
   message Meta {
-    required string key = 1;                    // MUST be unique, so if you have multiple values they must be aggregated into on Meta
+    required string key = 1;                    // MUST be unique, so if you have multiple values they must be aggregated into one Meta
     required MetaValue value = 2;
   }
   repeated Meta meta = 22;                      // Arbitrary meta-data - to be used in future rather than adding new fields all the time
@@ -183,7 +183,11 @@ message PBDNSMessage {
     optional string custom = 8;                 // The name of the event for custom events
   }
   repeated Event trace = 23;
+
   optional HTTPVersion httpVersion = 24;        // HTTP version used for DNS over HTTP
+  optional uint64 workerId = 25;                // Thread id
+  optional bool packetCacheHit = 26;            // Was it a packet cache hit?
+  optional uint32 outgoingQueries = 27;         // Number of outgoing queries used to answer the query
 }
 
 message PBDNSMessageList {
