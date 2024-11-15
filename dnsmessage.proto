@@ -188,6 +188,8 @@ message PBDNSMessage {
   optional uint64 workerId = 25;                // Thread id
   optional bool packetCacheHit = 26;            // Was it a packet cache hit?
   optional uint32 outgoingQueries = 27;         // Number of outgoing queries used to answer the query
+  optional uint16 headerFlags = 28;             // Flags field in wire format
+  optional uint32 ednsVersion = 29;             // EDNS version and flags in wire format
 }
 
 message PBDNSMessageList {
